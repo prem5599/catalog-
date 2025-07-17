@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Services Catalog</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.4;
+            color: #2d3748;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.03) 2px,
+                rgba(255,255,255,0.03) 4px
+            );
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            color: #cbd5e0;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .content {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid transparent;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .service {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .service:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .service-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 8px;
+        }
+        
+        .service-desc {
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .pricing {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .price-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .price-label {
+            color: #4a5568;
+            font-weight: 500;
+            width: 50%;
+        }
+        
+        .price-value {
+            font-weight: 700;
+            color: #1a202c;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .featured {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .featured::before {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .featured .service-name {
+            color: white;
+        }
+        
+        .featured .service-desc {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .featured .pricing {
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .featured .price-label {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .featured .price-value {
+            color: white;
+            background: none;
+            -webkit-text-fill-color: white;
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f56565;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .bottom-section {
+            padding: 0 40px 40px;
+        }
+        
+        .terms {
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .terms-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1a202c;
+        }
+        
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .term-item {
+            font-size: 12px;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+        
+        .term-label {
+            font-weight: 600;
+            color: #1a202c;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            border-radius: 8px;
+            margin: 0 40px 40px;
+        }
+        
+        @media print {
+            body { 
+                print-color-adjust: exact;
+                background: white !important;
+                padding: 0;
+            }
+            .container { 
+                box-shadow: none;
+                border-radius: 0;
+                max-width: none;
+            }
+            .service { 
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            .featured {
+                transform: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .terms-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">✨Digital Services</div>
+                <div class="tagline">Professional Video Production & Web Development</div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <span>saiprave23@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📱</span>
+                        <span>+91 6382406022</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="column">
+                <div class="section">
+                    <div class="section-title">🎬 Video Services</div>
+                    
+                    <div class="service">
+                        <div class="service-name">Instagram Video Production</div>
+                        <div class="service-desc">Complete 1-minute video creation with professional shooting and editing</div>
+                        <div class="pricing">
+                            <div class="price-row">
+                                <span class="price-label">Per Video</span>
+                                <span class="price-value">₹800 - ₹1,000</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-label">Monthly Package (15 videos)</span>
+                                <span class="price-value">₹12,000 - ₹15,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service">
+                        <div class="service-name">Video Shooting</div>
+                        <div class="service-desc">Professional video shooting with quality equipment setup</div>
+                        <div class="pricing">
+                            <div class="price-row">
+                                <span class="price-label">Per Session (1-2 hours)</span>
+                                <span class="price-value">₹800 - ₹1,200</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service">
+                        <div class="service-name">Video Editing</div>
+                        <div class="service-desc">Professional editing with cuts, transitions, and effects</div>
+                        <div class="pricing">
+                            <div class="price-row">
+                                <span class="price-label">Per Video</span>
+                                <span class="price-value">₹300 - ₹500</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-label">Hourly Rate</span>
+                                <span class="price-value">₹300 - ₹500/hr</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="section">
+                    <div class="section-title">💻 Web Development</div>
+                    
+                    <div class="service">
+                        <div class="service-name">Website Maintenance</div>
+                        <div class="service-desc">Updates, fixes, content changes, and alignment work</div>
+                        <div class="pricing">
+                            <div class="price-row">
+                                <span class="price-label">Hourly Rate</span>
+                                <span class="price-value">₹300 - ₹500/hr</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service">
+                        <div class="service-name">WordPress Website</div>
+                        <div class="service-desc">Custom WordPress sites with themes and SEO setup</div>
+                        <div class="pricing">
+                            <div class="price-row">
+                                <span class="price-label">Basic (5-10 pages)</span>
+                                <span class="price-value">₹15,000 - ₹25,000</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-label">Business (10-15 pages)</span>
+                                <span class="price-value">₹25,000 - ₹40,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service">
+                        <div class="service-name">Next.js Website</div>
+                        <div class="service-desc">Modern React applications with optimal performance</div>
+                        <div class="pricing">
+                            <div class="price-row">
+                                <span class="price-label">Basic Website</span>
+                                <span class="price-value">₹20,000 - ₹35,000</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-label">Web Application</span>
+                                <span class="price-value">₹35,000 - ₹60,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">📦 Package Deals</div>
+                    
+                    <div class="service featured">
+                        <div class="featured-badge">Popular</div>
+                        <div class="service-name">Complete Monthly Package</div>
+                        <div class="service-desc">15 Instagram videos + 8 hours website maintenance</div>
+                        <div class="pricing">
+                            <div class="price-row">
+                                <span class="price-label">Monthly Retainer</span>
+                                <span class="price-value">₹20,000 - ₹30,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="service">
+                        <div class="service-name">Bulk Video Discounts</div>
+                        <div class="service-desc">Volume pricing for large video orders</div>
+                        <div class="pricing">
+                            <div class="price-row">
+                                <span class="price-label">50+ Videos</span>
+                                <span class="price-value">15% Discount</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-label">100+ Videos</span>
+                                <span class="price-value">25% Discount</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-section">
+            <div class="terms">
+                <div class="terms-title">📋 Terms & Conditions</div>
+                <div class="terms-grid">
+                    <div class="term-item">
+                        <span class="term-label">Payment:</span> 50% advance, 50% on delivery
+                    </div>
+                    <div class="term-item">
+                        <span class="term-label">Revisions:</span> 2 free revisions included
+                    </div>
+                    <div class="term-item">
+                        <span class="term-label">Rush Delivery:</span> +50% for urgent projects
+                    </div>
+                    <div class="term-item">
+                        <span class="term-label">Ownership:</span> Client owns final deliverables
+                    </div>
+                    <div class="term-item">
+                        <span class="term-label">Timeline:</span> 2-6 weeks depending on project
+                    </div>
+                    <div class="term-item">
+                        <span class="term-label">Validity:</span> Prices valid for 30 days
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                All prices in Indian Rupees (₹) | Custom solutions available | Let's create something amazing together!
+            </div>
+        </div>
+    </div>
+</body>
+</html>
